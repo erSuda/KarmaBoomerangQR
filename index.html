@@ -3,33 +3,35 @@
 <head>
     <link rel="manifest" href="manifest.json">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Karma Boomerang - Alek</title>
     <style>
         @font-face {
             font-family: 'CHARLY';
             src: url('CHARLY.ttf') format('truetype');
-                 
             font-weight: normal;
             font-style: normal;
         }
-        body {
-            font-family: 'Mister Dangerous', 'Helvetica Neue', Arial, sans-serif;
+        html, body {
+            height: 100%;
             margin: 0;
             padding: 0;
+            overflow: hidden;
+        }
+        body {
+            font-family: 'Mister Dangerous', 'Helvetica Neue', Arial, sans-serif;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
+            justify-content: space-between;
             align-items: center;
-            min-height: 100vh;
             background: url('sfondo_occhio_rosa.png') no-repeat center center fixed; 
             background-size: cover;
         }
 
         h4 {
             color: black;
-            font-size: 36px;
-            margin: 40px 0;
+            font-size: 5vh;
+            margin: 3vh 0;
             text-align: center;
             font-family: 'CHARLY', sans-serif;
         }
@@ -38,18 +40,20 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: flex-start;
+            align-items: center;
             width: 90%;
             max-width: 600px;
-            padding: 20px;
+            flex-grow: 1;
+            padding: 2vh 0;
         }
 
         .platform-item {
             display: flex;
             align-items: center;
+            justify-content: flex-start;
             width: 100%;
-            margin-bottom: 20px;
-            padding: 15px 25px;
+            margin-bottom: 2vh;
+            padding: 1.5vh 2.5vh;
             background: rgba(192, 5, 255, 0.07);
             border-radius: 35px;
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -58,6 +62,7 @@
             border: 1px solid rgba(192, 5, 255, 0.01);
             text-decoration: none;
             transition: all 0.3s ease;
+            box-sizing: border-box;
         }
 
         .platform-item:hover {
@@ -66,18 +71,19 @@
         }
 
         .platform-item img {
-            width: 60px;
-            height: 60px;
-            margin-right: 25px;
+            width: 6vh;
+            height: 6vh;
+            margin-right: 2.5vh;
             transition: opacity 0.3s ease;
         }
 
         .platform-item h2 {
-            font-size: 27px;
+            font-size: 3vh;
             margin: 0;
             color: white;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
             font-family: 'CHARLY', sans-serif;
+            white-space: nowrap;
         }
 
         .faded {
@@ -92,45 +98,41 @@
             flex-direction: row-reverse;
             align-self: flex-end;
             width: auto;
+            justify-content: flex-end;
         }
 
         .platform-item.instagram img {
             margin-right: 0;
-            margin-left: 25px;
+            margin-left: 2.5vh;
         }
 
-        @media (max-width: 768px) {
+        @media (max-aspect-ratio: 1/1) and (max-width: 768px) {
             h4 {
-                font-size: 30px;
-                margin: 30px 0;
+                font-size: 4vh;
+                margin: 2vh 0;
             }
 
             .music-platforms {
                 width: 85%;
+                justify-content: space-around;
             }
 
             .platform-item {
-                padding: 12px 20px;
+                padding: 1.2vh 2vh;
             }
 
             .platform-item img {
-                width: 50px;
-                height: 50px;
-                margin-right: 20px;
+                width: 5vh;
+                height: 5vh;
+                margin-right: 2vh;
             }
 
             .platform-item h2 {
-                font-size: 24px;
-            }
-
-            .platform-item.clicked {
-                background: rgba(192, 5, 255, 0.15);
-                transform: scale(1.05);
+                font-size: 2.5vh;
             }
 
             .platform-item.instagram img {
-                margin-right: 0;
-                margin-left: 20px;
+                margin-left: 2vh;
             }
         }
     </style>
