@@ -88,6 +88,15 @@
             opacity: 1;
         }
 
+        .platform-item.instagram {
+            flex-direction: row-reverse;
+        }
+
+        .platform-item.instagram img {
+            margin-right: 0;
+            margin-left: 25px;
+        }
+
         @media (max-width: 768px) {
             h4 {
                 font-size: 30px;
@@ -113,10 +122,15 @@
             }
 
             .platform-item.clicked {
-            background: rgba(192, 5, 255, 0.15);
-            transform: scale(1.05);
+                background: rgba(192, 5, 255, 0.15);
+                transform: scale(1.05);
+            }
+
+            .platform-item.instagram img {
+                margin-right: 0;
+                margin-left: 20px;
+            }
         }
-    }
     </style>
 </head>
 <body>
@@ -148,7 +162,7 @@
         </a>
 
         <!-- Instagram -->
-        <a href="https://www.instagram.com/aleklj56/profilecard/?igsh=eDUyazAybm9wdDhu" class="platform-item" onclick="handleClick(event, 'InstagramLogo')">
+        <a href="https://www.instagram.com/aleklj56/profilecard/?igsh=eDUyazAybm9wdDhu" class="platform-item instagram" onclick="handleClick(event, 'InstagramLogo')">
             <img class="faded" id="InstagramLogo" src="instagram.png" alt="Instagram Logo">
             <h2>INSTAGRAM</h2>
         </a>
