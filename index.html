@@ -195,25 +195,34 @@
 
 <script>
 function trackClick(platform) {
-    // Sostituisci con l'URL del tuo progetto Glitch
-    const glitchUrl = 'https://level-foremost-prepared.glitch.me';
+    const glitchUrl = 'https://level-foremost-prepared.glitch.me/track-click';
     
-    console.log('Tracking click for platform:', platform); // Debug log
+    console.log('Tracking click for platform:', platform);
     
     fetch(glitchUrl, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'Accept': 'application/json'
         },
-        body: JSON.stringify({ platform: platform })
+        body: JSON.stringify({ platform: platform }),
+        mode: 'cors'  // Aggiunto modo CORS esplicito
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok: ' + response.status);
+        }
+        return response.json();
+    })
     .then(data => {
-        console.log('Click tracked successfully:', data); // Debug log
+        console.log('Click tracked successfully:', data);
     })
     .catch(error => {
-        console.error('Error tracking click:', error); // Error log
+        console.error('Error tracking click:', error);
     });
+
+    // Ritardo il redirect per assicurarmi che il click venga registrato
+    return new Promise(resolve => setTimeout(resolve, 300));
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -227,17 +236,12 @@ document.addEventListener('DOMContentLoaded', function() {
         'instagram': document.querySelector('a[href*="instagram"]')
     };
 
-    console.log('Setting up click listeners'); // Debug log
-
     for (const [platform, element] of Object.entries(platformMap)) {
         if (element) {
-            console.log('Adding listener for:', platform); // Debug log
-            element.addEventListener('click', function(e) {
-                e.preventDefault(); // Previene il redirect immediato
-                trackClick(platform);
-                setTimeout(() => {
-                    window.location.href = this.href;
-                }, 300); // Aspetta 300ms prima di aprire il link
+            element.addEventListener('click', async function(e) {
+                e.preventDefault();  // Previene il redirect immediato
+                await trackClick(platform);  // Aspetta che il tracking sia completato
+                window.location.href = this.href;  // Poi procede con il redirect
             });
         }
     }
