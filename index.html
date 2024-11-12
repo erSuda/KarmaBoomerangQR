@@ -195,17 +195,27 @@
 
 <script>
 function trackClick(platform) {
-    // Sostituisci questo URL con l'URL del tuo progetto Glitch
-    fetch('https://exciting-opaque-antelope.glitch.me', {
+    // Sostituisci con l'URL del tuo progetto Glitch
+    const glitchUrl = 'https://nome-tuo-progetto.glitch.me/track-click';
+    
+    console.log('Tracking click for platform:', platform); // Debug log
+    
+    fetch(glitchUrl, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({ platform: platform })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Click tracked successfully:', data); // Debug log
+    })
+    .catch(error => {
+        console.error('Error tracking click:', error); // Error log
     });
 }
 
-// Aggiungi gli event listener a tutti i link
 document.addEventListener('DOMContentLoaded', function() {
     const platformMap = {
         'spotify': document.querySelector('a[href*="spotify"]'),
@@ -217,10 +227,17 @@ document.addEventListener('DOMContentLoaded', function() {
         'instagram': document.querySelector('a[href*="instagram"]')
     };
 
+    console.log('Setting up click listeners'); // Debug log
+
     for (const [platform, element] of Object.entries(platformMap)) {
         if (element) {
-            element.addEventListener('click', function() {
+            console.log('Adding listener for:', platform); // Debug log
+            element.addEventListener('click', function(e) {
+                e.preventDefault(); // Previene il redirect immediato
                 trackClick(platform);
+                setTimeout(() => {
+                    window.location.href = this.href;
+                }, 300); // Aspetta 300ms prima di aprire il link
             });
         }
     }
